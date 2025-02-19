@@ -1,0 +1,14 @@
+services:
+  flights:
+    build: .
+    restart: on-failure
+    depends_on:
+      - mongo
+    ports:
+      - "${PORT:-8080}:8080"
+    environment:
+      - NODE_ENV=production
+  mongo:
+    image: "mongo"
+    ports:
+      - "27017:27017"

@@ -1,0 +1,43 @@
+services:
+  orders:
+    build: .
+    restart: on-failure
+    depends_on:
+      - mongodb
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - "./logs:/usr/src/app/logs"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_HOST=mongodb
+    networks:
+      - app-network
+
+  ui:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - orders
+      - mongodb
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - API_HOST=http://orders:8080
+      - MONGODB_HOST=mongodb
+    networks:
+      - app-network
+
+  mongodb:
+    image: "mongo"
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

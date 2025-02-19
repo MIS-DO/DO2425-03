@@ -1,0 +1,22 @@
+services: 
+  orders:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - "logsvol:/usr/src/app/logs"
+  ui:
+    environment:
+      - NODE_ENV=development
+      - API_HOST=http://orders:8080
+      - MONGODB_HOST=mongo
+    volumes:
+      - "./ui:/usr/src/app"
+  mongo:
+    command: ['--logpath', '/var/log/mongodb/db.log']
+    volumes:
+      - "datavol:/data/db"
+      - "logsvol:/var/log/mongodb"
+volumes:
+  logsvol:
+    external: true
+  datavol:

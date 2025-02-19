@@ -1,0 +1,53 @@
+services:
+  orders-dev:
+    build: .
+    restart: on-failure
+    depends_on:
+      - mongo-dev
+    environment:
+      - NODE_ENV=development
+      - VIRTUAL_HOST=dev.do2425-orders.es
+      - MONGODB_HOST=mongo-dev
+  mongo-dev:
+    image: mongo
+    volumes:
+      - "./data:/data/db"
+  ui-dev:
+    build:
+      context: ./ui
+    restart: on-failure
+    depends_on:
+      - orders-dev
+      - mongo-dev
+    environment:
+      - NODE_ENV=development
+      - VIRTUAL_HOST=dev.do2425-ui.es
+      - API_HOST=http://orders-dev:8080
+      - MONGODB_HOST=mongo-dev
+  orders-prod:
+    build: .
+    restart: on-failure
+    depends_on:
+      - mongo-prod
+    environment:
+      - NODE_ENV=production
+      - VIRTUAL_HOST=do2425-orders.es
+      - MONGODB_HOST=mongo-prod
+  mongo-prod:
+    image: mongo
+  ui-prod:
+    build:
+      context: ./ui
+    restart: on-failure
+    depends_on:
+      - orders-prod
+      - mongo-prod
+    environment:
+      - NODE_ENV=production
+      - VIRTUAL_HOST=do2425-ui.es
+      - API_HOST=http://orders-prod:8080
+      - MONGODB_HOST=mongo-prod
+networks:
+  default:
+    external:
+      name: service-tier

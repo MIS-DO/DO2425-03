@@ -1,0 +1,30 @@
+
+---
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: flights-api
+  name: flights-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flights-api-pod
+  template:
+    metadata:
+      labels:
+        app: flights-api-pod
+    spec:
+      containers:
+      - name: flights-api-container
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongodb-service:27017
+        resources: {}
+        image: lanerin/flights-api:1.0
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

@@ -23,7 +23,7 @@ spec:
         - name: MONGO_URL
           value: mongodb://mongodb-service:27017
         resources: {}
-        image: lanerin/flights-api:preprod
+        image: ismaamesaa/flights-api:preprod
         ports:
         - containerPort: 8080
       restartPolicy: Always

@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: orders-api
+    env: preprod
+  name: orders-api-deployment-preprod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-api-pod
+      env: preprod
+  template:
+    metadata:
+      labels:
+        app: orders-api-pod
+        env: preprod
+    spec:
+      containers:
+      - name: orders-api-container
+        image: ismaamesaa/do-orders-api:preprod
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongodb-service:27017
+      restartPolicy: Always

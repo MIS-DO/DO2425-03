@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service-preprod
+  labels:
+    app: gateway
+    env: preprod
+spec:
+  selector:
+    app: gateway
+    env: preprod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: NodePort

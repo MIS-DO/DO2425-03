@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: orders-api
+  name: orders-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-api-pod
+  template:
+    metadata:
+      labels:
+        app: orders-api-pod
+    spec:
+      containers:
+      - name: orders-api-container
+        env:
+        - name: MONGO_URL
+          value: mongodb://mongodb-service:27017
+        resources: {}
+        image: ismaamesaa/do-orders-api:do2425-C05
+        ports:
+        - containerPort: 8080
+      restartPolicy: Always

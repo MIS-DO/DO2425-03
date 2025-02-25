@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: api-ingress
+spec:
+  rules:
+  - host: "api.production.com"
+    http:
+      paths:
+      - path: "/combined"
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway-service
+            port:
+              number: 80
+
+  - host: "api.preprod.com"
+    http:
+      paths:
+      - path: "/combined"
+        pathType: Prefix
+        backend:
+          service:
+            name: gateway-service-preprod
+            port:
+              number: 80

@@ -1,0 +1,6 @@
+services:
+  gateway:
+    environment:
+      - ORDERS_URL=http://orders-preprod:8080
+      - FLIGHTS_URL=http://flights-preprod:8080
+      - NODE_ENV=development

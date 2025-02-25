@@ -1,0 +1,14 @@
+# Ignorar la carpeta de dependencias de Node.js
+node_modules/
+
+# Ignorar las carpetas de datos de preproducción y producción
+data-preprod/
+data-prod/
+
+# Opcional: Ignorar archivos de logs y temporales
+logs/
+*.log
+tmp/
+
+# Opcional: Ignorar archivos de configuración locales
+.env

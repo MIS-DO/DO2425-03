@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: orders-api-container
-        image: ismaamesaa/do-orders-api:preprod
+        image: ismaamesaa/orders-api:preprod
         ports:
         - containerPort: 8080
         env:

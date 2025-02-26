@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: gateway
-        image: ismaamesaa/seeker-gateway:preprod
+        image: ismaamesaa/seeker-gateway-api:preprod
         ports:
         - containerPort: 3000
         env:

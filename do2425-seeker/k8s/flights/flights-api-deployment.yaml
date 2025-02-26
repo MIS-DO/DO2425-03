@@ -1,7 +1,3 @@
-
----
-
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,6 +19,8 @@ spec:
         env:
         - name: MONGO_URL
           value: mongodb://mongodb-service:27017
+        - name: MONGODB_HOST
+          value: "mongodb-service"
         resources: {}
         image: ismaamesaa/flights-api:prod
         ports:

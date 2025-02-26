@@ -2,7 +2,11 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: api-ingress
+  # Opcional: también puedes usar esta anotación
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
 spec:
+  ingressClassName: nginx
   rules:
   - host: "api.production.com"
     http:
@@ -11,10 +15,9 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: gateway-service
+            name: gateway
             port:
               number: 80
-
   - host: "api.preprod.com"
     http:
       paths:
